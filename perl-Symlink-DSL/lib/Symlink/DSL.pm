@@ -156,3 +156,35 @@ sub process_manifest
 =head1 NAME
 
 Symlink::DSL - a domain-specific language for setting up symbolic links.
+
+=head1 METHODS
+
+=head2 Symlink::DSL->new({dir => $path2dir, skip_re=> $regexp})
+
+Returns a new object.
+
+=head2 dir()
+
+Returns the directory path.
+
+=head2 $obj->handle_line({%args})
+
+Handles a single line.
+
+=head2 $obj->manifest()
+
+Returns the manifest path.
+
+=head2 $obj->manifest_exists()
+
+Returns whether the manifest exists.
+
+=head2 $obj->process_manifest()
+
+Processes all lines in the manifest file.
+
+=head2 $obj->skip_re()
+
+Returns the optional regex to skip dest paths.
+
+=cut
