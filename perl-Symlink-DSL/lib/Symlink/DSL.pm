@@ -157,6 +157,29 @@ sub process_manifest
 
 Symlink::DSL - a domain-specific language for setting up symbolic links.
 
+=head1 SYNOPSIS
+
+    use Symlink::DSL;
+
+    my $dir = "$ENV{HOME}/conf/trunk/shlomif-settings/home-bin-executables";
+    my $skip_re = undef;
+    my $processor = Symlink::DSL->new( { dir => $dir, skip_re => $skip_re, } );
+    $processor->process_manifest;
+
+And in C<< setup.symlinks.manifest.txt >>:
+
+    symlink from ~/bin/80_chars_ruler to ./bin/80_chars_ruler
+    symlink from ~/bin/SPECS-only-for-deps-co to ./bin/SPECS-only-for-deps-co
+    symlink from ~/bin/backup-slash.bash to ./bin/backup-slash.bash
+    symlink from ~/bin/commify to ./bin/commify
+    symlink from ~/bin/desktop-finish-cue to ./bin/desktop-finish-cue
+    symlink from ~/bin/git-com to ./bin/git-com
+    symlink from ~/bin/git-mkdir to ./bin/git-mkdir
+    symlink from ~/bin/git-s to ./bin/git-s
+    symlink from ~/bin/mplayer-shuffle to ./bin/mplayer-shuffle
+    symlink from ~/bin/sus to ./bin/sus
+    symlink from ~/bin/tail-extract to ./bin/tail-extract
+
 =head1 METHODS
 
 =head2 Symlink::DSL->new({dir => $path2dir, skip_re=> $regexp})
