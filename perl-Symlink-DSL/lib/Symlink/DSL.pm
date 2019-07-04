@@ -210,4 +210,13 @@ Processes all lines in the manifest file.
 
 Returns the optional regex to skip dest paths.
 
+=head1 SEE ALSO
+
+L<GNU Stow|https://tomeaton.uk/blog/jekyll/update/2017/10/25/Managing-dotfiles-with-GNU-stow.html> which
+seems more limited and is under the GPL.
+
+L<Setup> .
+
+L<Doit> .
+
 =cut
