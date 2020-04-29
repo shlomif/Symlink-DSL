@@ -196,6 +196,15 @@ And in C<< setup.symlinks.manifest.txt >>:
     symlink from ~/bin/sus to ./bin/sus
     symlink from ~/bin/tail-extract to ./bin/tail-extract
 
+=head1 DESCRIPTION
+
+Symlink::DSL implements a domain-specific language for setting up symbolic
+links (e.g: to dot files and other resources). For example, one
+can write:
+
+    symlink from ~/bin/80_chars_ruler to ./bin/80_chars_ruler
+    symlink from ~/bin/backup-slash.bash to ./bin/backup-slash.bash
+
 =head1 METHODS
 
 =head2 Symlink::DSL->new({dir => $path2dir, skip_re=> $regexp})
@@ -208,7 +217,11 @@ Accepts:
 
 =item * dir
 
+The directory path which contains the manifest file.
+
 =item * skip_re
+
+A regular expression that will skip checking existing links.
 
 =item * manifest_base
 
@@ -220,7 +233,7 @@ The basename of the manifest file. Defaults to C<< setup.symlinks.manifest.txt >
 
 Returns the directory path.
 
-=head2 $obj->handle_line({%args})
+=head2 $obj->handle_line({line => $line_string})
 
 Handles a single line.
 
@@ -228,7 +241,7 @@ Handles a single line.
 
 Returns the basename of the manifest files. Can be set in new() .
 
-Added in 0.2.0).
+(Added in 0.2.0 .)
 
 =head2 $obj->manifest()
 
