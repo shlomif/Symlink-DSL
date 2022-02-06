@@ -277,6 +277,8 @@ Processes all lines in the manifest file.
 
 Processes a single record / a single operation.
 
+( Added in v0.4.0 . )
+
 =head2 $obj->skip_re()
 
 Returns the optional regex to skip dest paths.
