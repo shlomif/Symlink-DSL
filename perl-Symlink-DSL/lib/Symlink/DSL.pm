@@ -4,6 +4,7 @@ use 5.014;
 use strict;
 use warnings;
 use autodie;
+
 use Cwd qw/ getcwd /;
 use File::Basename qw/ dirname /;
 use File::Path qw/ mkpath /;
@@ -83,17 +84,32 @@ sub dir
 sub handle_line
 {
     my ( $self, $args ) = @_;
-
-    my $l       = $args->{line};
-    my $dir     = $self->dir;
-    my $skip_re = $self->skip_re;
-    my $pwd     = getcwd();
-
+    my $l = $args->{line};
     my ( $dest, $src );
     unless ( ( $dest, $src ) = $l =~ m#\Asymlink from ~/(\S+) to \./(\S+)\z# )
     {
         die "wrong line <$l> in @{[$self->manifest]} !";
     }
+    return $self->process_single_record(
+        {
+            from => $dest,
+            line => $l,
+            to   => $src,
+        }
+    );
+}
+
+sub process_single_record
+{
+    my ( $self, $args ) = @_;
+
+    my $dest = $args->{'from'};
+    my $l    = $args->{'line'};
+    my $src  = $args->{'to'};
+
+    my $dir     = $self->dir;
+    my $skip_re = $self->skip_re;
+
     foreach my $str ( $src, $dest )
     {
         if ( $str =~ /([^a-zA-Z\-_0-9\.\/])/ )
@@ -107,6 +123,8 @@ sub handle_line
 "unacceptable sequence $1 in line <$l> in @{[$self->manifest]} !";
         }
     }
+
+    my $pwd = getcwd();
     chdir($dir);
     my $conf_dir = getcwd();
     my $h        = $ENV{HOME};
@@ -229,7 +247,7 @@ The basename of the manifest file. Defaults to C<< setup.symlinks.manifest.txt >
 
 =back
 
-=head2 dir()
+=head2 $obj->dir()
 
 Returns the directory path.
 
@@ -254,6 +272,10 @@ Returns whether the manifest exists.
 =head2 $obj->process_manifest()
 
 Processes all lines in the manifest file.
+
+=head2 $obj->process_single_record({from=>$dest, line=>$l, to=>$src,})
+
+Processes a single record / a single operation.
 
 =head2 $obj->skip_re()
 
